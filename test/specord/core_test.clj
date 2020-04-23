@@ -7,5 +7,6 @@
                      name string?])
 
 (deftest defspecord-test
-  (is (s/valid? ::UserDTO (->UserDTO 1 "specord")))
-  (is (not (s/valid? ::UserDTO (->UserDTO 1 2)))))
+  (is (instance? UserDTO (make-user-dto {:id 1 :name "specord"})))
+  (is (not (instance? UserDTO (make-user-dto {:id 1 :name 2})))))
+
