@@ -2,6 +2,12 @@
 
 Define record with spec!
 
+## Installation
+
+Add the following dependency to your `project.clj` file:
+
+    [specord "0.1.0"]
+
 ## Usage
 
 ``` clojure
