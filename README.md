@@ -1,14 +1,41 @@
 # specord
 
-A Clojure library designed to ... well, that part is up to you.
+Define record with spec!
 
 ## Usage
 
-FIXME
+``` clojure
+(require '[specord.core :refer [defspecord]])
+
+(ns my)
+
+(defspecord User [id   integer?
+                  name string?])
+
+;; It generates spec for User, id and name like this:
+;; (s/def :my.user/id integer?)
+;; (s/def :my.user/name string?)
+;; (s/def :my/user (s/keys :req-un [:my.user/id :my.user/name]))
+
+(s/valid? :my/user (->User 1 "Eunmin Kim"))
+;; true
+
+;; It also makes useful constructors for record like this
+;; (defn make-user [m] ...)
+;; (defn make-user! [m] ...)
+;;
+;; This constructors has the ability to validate specs.
+
+(make-user {:id 1 :name nil})
+;; #:clojure.spec.alpha{:problems ({ ...
+
+(make-user! {:id 1 :name nil})
+;; An exception occurred with ExceptionInfo.
+```
 
 ## License
 
-Copyright © 2020 FIXME
+Copyright © 2020 Eunmin Kim
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

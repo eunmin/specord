@@ -17,4 +17,8 @@
        (defn ~(symbol (str "make-" kebab-name)) [value#]
          (if-let [error# (s/explain-data ~(keyword (str *ns*) kebab-name) value#)]
            error#
+           (~(symbol (str "map->" name)) value#)))
+       (defn ~(symbol (str "make-" kebab-name "!")) [value#]
+         (if-let [error# (s/explain-data ~(keyword (str *ns*) kebab-name) value#)]
+           (throw (ex-info nil error#))
            (~(symbol (str "map->" name)) value#))))))
