@@ -5,9 +5,8 @@ Define record with spec!
 ## Usage
 
 ``` clojure
-(require '[specord.core :refer [defspecord]])
-
-(ns my)
+(ns my
+  (:require [specord.core :refer [defspecord]]))
 
 (defspecord User [id   integer?
                   name string?])
