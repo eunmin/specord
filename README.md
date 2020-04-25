@@ -26,6 +26,9 @@ Define record with spec!
 ;;
 ;; This constructors has the ability to validate specs.
 
+(make-user {:id 1 :name "Eunmin Kim"})
+;; #my.User{:id 1 :name "Eunmin Kim"}
+
 (make-user {:id 1 :name nil})
 ;; #:clojure.spec.alpha{:problems ({ ...
 
