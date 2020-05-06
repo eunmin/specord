@@ -6,7 +6,7 @@ Define record with spec!
 
 Add the following dependency to your `project.clj` file:
 
-    [specord "0.1.0"]
+    [specord "0.1.1"]
 
 ## Usage
 
@@ -18,27 +18,40 @@ Add the following dependency to your `project.clj` file:
                   name string?])
 
 ;; It generates spec for User, id and name like this:
-;; (s/def :my.user/id integer?)
-;; (s/def :my.user/name string?)
-;; (s/def :my/user (s/keys :req-un [:my.user/id :my.user/name]))
+;;
+;; (clojure.spec.alpha/def :specord.core.User/id integer?)
+;; (clojure.spec.alpha/def :specord.core.User/name string?)
+;; (clojure.spec.alpha/def
+;;   :my/User
+;;   (clojure.spec.alpha/keys :req-un [:my.User/id :my.User/name]))
+;; (clojure.spec.alpha/fdef
+;;   ->User
+;;   :args
+;;   (clojure.spec.alpha/cat :id integer? :name string?)
+;;   :ret
+;;   :my/User)
+;; (clojure.spec.alpha/fdef
+;;   map->User
+;;   :args
+;;   (clojure.spec.alpha/cat :m :my/User)
+;;   :ret
+;;   :my/User)
+;; (defrecord User [id name])
 
-(s/valid? :my/user (->User 1 "Eunmin Kim"))
+(s/valid? :my/User (->User 1 "Eunmin Kim"))
 ;; true
 
-;; It also makes useful constructors for record like this
-;; (defn make-user [m] ...)
-;; (defn make-user! [m] ...)
-;;
-;; This constructors has the ability to validate specs.
+(require '[clojure.spec.test.alpha :as stest])
 
-(make-user {:id 1 :name "Eunmin Kim"})
-;; #my.User{:id 1 :name "Eunmin Kim"}
+(stest/instrument `->User)
 
-(make-user {:id 1 :name nil})
-;; #:clojure.spec.alpha{:problems ({ ...
-
-(make-user! {:id 1 :name nil})
-;; An exception occurred with ExceptionInfo.
+(->User "1" "Eunmin Kim")
+;; You will see an error like this:
+;; clojure.lang.ExceptionInfo
+;;  Spec assertion failed.
+;;  Spec: ...
+;; Value: ("1" "Eunmin Kim")
+;; Problems : ...
 ```
 
 ## License
