@@ -18,7 +18,7 @@
          :args (s/cat ~@(->> bindings
                              (map (fn [[field spec]]
                                     [(keyword field) spec]))
-                             flatten))
+                             (apply concat)))
          :ret ~spec-key)
        (s/fdef ~map-ctor-name
          :args (s/cat :m ~spec-key)
