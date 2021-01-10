@@ -19,8 +19,8 @@ Add the following dependency to your `project.clj` file:
 
 ;; It generates spec for User, id and name like this:
 ;;
-;; (clojure.spec.alpha/def :specord.core.User/id integer?)
-;; (clojure.spec.alpha/def :specord.core.User/name string?)
+;; (clojure.spec.alpha/def :my.User/id integer?)
+;; (clojure.spec.alpha/def :my.User/name string?)
 ;; (clojure.spec.alpha/def
 ;;   :my/User
 ;;   (clojure.spec.alpha/keys :req-un [:my.User/id :my.User/name]))
